@@ -1,4 +1,4 @@
-FROM ruby:2.6-slim
+FROM ruby:3.0.0-slim
 
 WORKDIR /srv/slate
 
@@ -24,3 +24,4 @@ RUN chmod +x /srv/slate/slate.sh
 
 ENTRYPOINT ["/srv/slate/slate.sh"]
 CMD ["build"]
+CMD ["serve"]

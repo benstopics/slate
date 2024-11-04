@@ -16,7 +16,7 @@ includes:
 
 search: true
 
-code_clipboard: true
+code_clipboard: false
 
 meta:
   - name: description
