@@ -8,24 +8,22 @@ module Multilang
 
       plain_code = code.gsub(/<[^>]*>/, '') # Remove HTML tags
 
-      print "plain_code: #{plain_code}\n"
+      # Parse growthdocs-id=<id> from the code block
+      growthdocs_id = plain_code.match(/growthdocs-id=(.+)/)&.captures&.first
 
-      random_fiddle_id = rand(36**8).to_s(36) # Generate a random fiddle ID
-
-      # Custom HTML output with desired classes
-      <<~HTML
-        <div class="highlight">
-          <pre class="highlight #{rouge_lang_name} #{tab_class}"><div fiddledocs-id="#{random_fiddle_id}"></div></pre>
-        </div>
-      HTML
+      if growthdocs_id
+        # Custom HTML output with desired classes
+        <<~HTML
+          <div class="highlight">
+            <pre class="highlight #{rouge_lang_name} #{tab_class}"><div growthdocs-id="#{growthdocs_id}"></div></pre>
+          </div>
+        HTML
+      else
+        super(code, rouge_lang_name).sub("highlight #{rouge_lang_name}") do |match|
+          match + " tab-" + full_lang_name
+        end
+      end
     else
-      # Default behavior when no language is specified
-      # <<~HTML
-      #   <div class="custom-code-block no-lang">
-      #     <pre><code>Hello World!</code></pre>
-      #   </div>
-      # HTML
-      
       super(code, full_lang_name)
     end
   end

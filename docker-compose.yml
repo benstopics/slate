@@ -3,8 +3,6 @@ version: '3.8'
 services:
   ruby:
     build: .
-    volumes:
-      - .:/srv/slate
     tty: true
     ports:
       - "4567:4567"

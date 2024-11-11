@@ -16,6 +16,8 @@ RUN apt-get update \
     && bundle install \
     && apt-get remove -y build-essential git \
     && apt-get autoremove -y \
+    && apt-get install -y zip unzip \
+    && apt-get install -y curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /srv/slate

@@ -30,6 +30,17 @@ Deploy options:
 "
 
 
+# .zip source folder
+zip -r /srv/slate/source-raw.zip /srv/slate/source
+
+# cURL command to upload source.zip by adding it as "file" parameter to multipart/form-data POST request https://localhost:5004/api/examples/import
+# and save the response to source.zip
+curl -X POST -F "file=@/srv/slate/source-raw.zip" http://host.docker.internal:5003/api/examples/import -o /srv/slate/source.zip
+
+# Unzip source.zip replace source folder
+unzip -o /srv/slate/source.zip -d /srv/slate/
+
+
 run_serve() {
   exec bundle exec middleman serve --watcher-force-polling
 }
